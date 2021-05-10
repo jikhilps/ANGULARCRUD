@@ -1,0 +1,71 @@
+
+
+<body>
+    <div class="container">
+
+        <h1>Item Details</h1>
+        <div class="row">
+            <div class="col-12">
+                <label>Item Name *</label>
+                <input type="text" class="form-control" [(ngModel)]="item.ItemName">
+            </div><br />
+            <div class="col-12">
+                <label>Category *</label>
+                <select class="form-control" [(ngModel)]="item.Category">
+                    <option *ngFor="let item of CategoryList" [value]="item">{{item}}</option>
+                </select>
+            </div><br />
+
+            <div class="col-12 ">
+                <label>Delivery Mode *</label><br />
+                <input type="radio" [(ngModel)]="item.DeliveryMode" name="mode" value="1"> Dining<br>
+                <input type="radio" [(ngModel)]="item.DeliveryMode" name="mode" value="2"> Parcel<br>
+
+            </div><br />
+
+            <div class="col-12">
+                <label>Add on</label>
+                <div *ngFor="let add of AddOnList">
+                    <input type="checkbox" [(ngModel)]="add.IsSelected"  (change)="ChangeAddOn($event,add)">{{add.name}}
+                </div>
+
+            </div>
+
+        </div> <br />
+        <h1 *ngIf="item.AddonOptionLiss.length>0">Added Options</h1>
+        <div *ngFor="let item of item.AddonOptionLiss ">
+            <p>{{item.name}}</p>
+        </div>
+
+        <button class="form-control col-12" *ngIf="item.Id==0" (click)=" Add()"
+            style="background-color: blue;color: white;">Submit</button>
+            <button class="form-control col-12" *ngIf="item.Id>0" (click)=" update()"
+            style="background-color:green;color: white;">Update</button>
+    </div> <br />
+
+    <div class="container" *ngIf="DemoList.length>0">
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Mode</th>
+
+                <th>Action</th>
+
+            </tr>
+            <tr *ngFor="let a of DemoList;let i=index">
+                <td (click)="Open(a)">{{a.ItemName}}</td>
+                <td (click)="Open(a)">{{a.Category}}</td>
+                <td (click)="Open(a)">{{a.DeliveryMode==1?'Dining':'Parcel'}}</td>
+                <td style="cursor: pointer;color: red;" (click)="Delete(index)">Delete</td>
+            </tr>
+        </table>
+    </div>
+
+
+
+
+
+
+
+</body>
